@@ -1,0 +1,7 @@
+---
+# defaults file for kibana-config
+kibana_config_dir: /usr/local/kibana/config
+
+#kibana_config_port : 5601
+kibana_config_activate: True
+#kibana_config_init: systemd

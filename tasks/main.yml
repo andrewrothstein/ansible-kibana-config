@@ -1,0 +1,27 @@
+---
+- name: resolve platform specific vars
+  include_vars: '{{item}}'
+  with_first_found:
+    - files:
+        - '{{ansible_distribution}}-{{ansible_distribution_release}}.yml'
+        - '{{ansible_distribution}}.yml'
+        - '{{ansible_os_family}}.yml'
+      skip: true
+      paths:
+        - '{{role_path}}/vars'
+
+- name: configure...
+  become: yes
+  become_user: root
+  with_items:
+    - f: kibana.yml
+  template:
+    src: '{{item.f}}.j2'
+    dest: '{{item.d|default(kibana_config_dir)}}/{{item.f}}'
+    mode: '{{item.d|default("0644")}}'
+
+- include: '{{kibana_config_init|default("systemd")}}.yml'
+
+
+  
+    
