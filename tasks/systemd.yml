@@ -6,7 +6,7 @@
     - f: kibana.service
   template: 
     src: '{{item.f}}.j2'
-    dest: '{{item.d|default("/usr/lib/systemd/system")}}/{{item.f}}'
+    dest: '{{item.d|default("/etc/systemd/system")}}/{{item.f}}'
     mode: '{{item.m|default("0644")}}'
   register: kibana_config_service_updated
 
