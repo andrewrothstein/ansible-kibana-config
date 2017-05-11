@@ -12,7 +12,7 @@
 
 - name: systemctl daemon-reload
   command: systemctl daemon-reload
-  when: kibana_config_service_updated|changed
+  when: kibana_config_activate and kibana_config_service_updated|changed
 
 - name: activate kibana service...
   when: kibana_config_activate
