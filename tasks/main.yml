@@ -28,7 +28,7 @@
     dest: '{{item.d|default(kibana_config_dir)}}/{{item.f}}'
     mode: '{{item.d|default("0644")}}'
 
-- include: '{{kibana_config_init|default("systemd")}}.yml'
+- include_tasks: '{{kibana_config_init|default("systemd")}}.yml'
 
 
   
