@@ -4,17 +4,22 @@
   become_user: root
   with_items:
     - f: kibana.service
-  template: 
-    src: '{{item.f}}.j2'
-    dest: '{{item.d|default("/etc/systemd/system")}}/{{item.f}}'
-    mode: '{{item.m|default("0644")}}'
+  template:
+    src: '{{ item.f }}.j2'
+    dest: '{{ item.d|default("/etc/systemd/system") }}/{{ item.f }}'
+    mode: '{{ item.m|default("0644") }}'
   register: kibana_config_service_updated
 
 - name: systemctl daemon-reload
-  command: systemctl daemon-reload
+  become: yes
+  become_user: root
   when: kibana_config_activate and kibana_config_service_updated is changed
+  systemd:
+    daemon_reload: yes
 
 - name: activate kibana service...
+  become: yes
+  become_user: root
   when: kibana_config_activate
   service:
     name: kibana
